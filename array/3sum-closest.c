@@ -25,3 +25,14 @@ int threeSumClosest(int* nums, int numsSize, int target) {
 
     return ret;
 }
+
+int main()
+{
+    int nums[] = {-1, 0, 1, 2, -1, -4};
+    int numsSize = 6;
+    int returnSize;
+    int result;
+    result = threeSumClosest(nums, numsSize, 3);
+    printf("result:%d \n", result);
+    return 0;
+}
