@@ -1,3 +1,11 @@
+//85. 最大矩形
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int get_maxarea(int *height, int size)
 {
     int *stack;
@@ -49,4 +57,13 @@ int maximalRectangle(char** matrix, int matrixRowSize, int matrixColSize) {
 
     free(height);
     return max_area;
+}
+
+int main() {
+    char* matrix[] = {"10100", "10111", "11111", "10010"};
+    int matrixRowSize = 4;
+    int matrixColSize = 5;
+    int maxArea = maximalRectangle(matrix, matrixRowSize, matrixColSize);
+    printf("%d", maxArea); // 6
+    return 0;
 }
