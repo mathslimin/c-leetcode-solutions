@@ -1,3 +1,11 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+#include "treenode.h"
+
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -30,4 +38,14 @@ struct TreeNode* buildTree(int* inorder, int inorderSize, int* postorder, int po
     if(inorderSize == 0)
         return NULL;
     return helper(inorder,0,inorderSize-1,postorder,0,postorderSize-1);
+}
+
+int main()
+{
+    int postorder[] = {3, 9, 20, 15, 7};
+    int inorder[] = {9, 3, 15, 20, 7};
+    int inorderSize = sizeof(inorder) / sizeof(int);
+    int postorderSize = sizeof(postorder) / sizeof(int);
+    struct TreeNode* root = buildTree(inorder, inorderSize, postorder, postorderSize);
+    printTree(root);
 }
