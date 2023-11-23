@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int search(int* nums, int numsSize, int target) {
     int start,end,mid;
 
@@ -26,4 +33,12 @@ int search(int* nums, int numsSize, int target) {
     }
 
     return -1;
+}
+
+int main(){
+    int nums[7] = {4, 5, 6, 7, 0, 1, 2};
+    int target = 0;
+    int result = search(nums, 7, target);
+    printf("%d", result);
+    return 0;
 }
