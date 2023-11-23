@@ -1,8 +1,11 @@
-/**
- * Return an array of arrays of size *returnSize.
- * The sizes of the arrays are returned as *columnSizes array.
- * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
- */
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+// 90. 子集 II
+
 int **ret;
 int *col;
 int size;
@@ -51,4 +54,23 @@ int** subsetsWithDup(int* nums, int numsSize, int** columnSizes, int* returnSize
     *columnSizes = col;
     *returnSize = idx;
     return ret;
+}
+
+int main() {
+    int nums[] = {1, 2, 2};
+    int numsSize = sizeof(nums) / sizeof(nums[0]);
+    int returnSize;
+    int *returnColumnSizes;
+    int **result = subsetsWithDup(nums, numsSize, &returnSize, &returnColumnSizes);
+    for (int i = 0; i < returnSize; i++) {
+        printf("[");
+        for (int j = 0; j < returnColumnSizes[i]; j++) {
+            printf("%d", result[i][j]);
+            if (j != returnColumnSizes[i] - 1) {
+                printf(", ");
+            }
+        }
+        printf("]");
+    }
+    return 0;
 }
