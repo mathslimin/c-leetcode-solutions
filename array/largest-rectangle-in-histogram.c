@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int largestRectangleArea(int* height, int heightSize) {
     int *stack;
     int top = -1;
@@ -21,4 +28,12 @@ int largestRectangleArea(int* height, int heightSize) {
 
     free(stack);
     return max;
+}
+
+int main() {
+    int height[] = {2,1,5,6,2,3};
+    int heightSize = 6;
+    int maxArea = largestRectangleArea(height, heightSize);
+    printf("largest rectangle area is %d", maxArea);
+    return 0;
 }
