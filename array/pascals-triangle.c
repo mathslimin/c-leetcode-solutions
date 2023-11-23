@@ -1,8 +1,10 @@
-/**
- * Return an array of arrays of size *returnSize.
- * The sizes of the arrays are returned as *columnSizes array.
- * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
- */
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int** generate(int numRows, int** columnSizes, int* returnSize) {
     int **ret;
     int i,j;
@@ -23,4 +25,20 @@ int** generate(int numRows, int** columnSizes, int* returnSize) {
     *returnSize = numRows;
     *columnSizes = col;
     return ret;
+}
+
+int main(){
+    int numRows = 5;
+    int returnSize;
+    int* returnColumnSizes;
+    int** result = generate(numRows, &returnSize, &returnColumnSizes);
+
+    for(int i = 0; i < returnSize; i++){
+        for(int j = 0; j < returnColumnSizes[i]; j++){
+            printf("%d ", result[i][j]);
+        }
+        printf(" ");
+    }
+
+    return 0;
 }
