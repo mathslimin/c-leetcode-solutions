@@ -1,8 +1,9 @@
-/**
- * Return an array of arrays of size *returnSize.
- * The sizes of the arrays are returned as *columnSizes array.
- * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
- */
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
 
 int top;
 int count;
@@ -57,4 +58,18 @@ int** combinationSum3(int k, int n, int** columnSizes, int* returnSize) {
     *columnSizes = col;
     *returnSize = count;
     return ret;
+}
+
+int main() {
+    int k = 3, n = 7;
+    int* columnSizes = (int*)malloc(sizeof(int) * 1000);
+    int returnSize = 0;
+    int** res = combinationSum3(k, n, &columnSizes, &returnSize);
+    for (int i = 0; i < returnSize; i++) {
+        for (int j = 0; j < columnSizes[i]; j++) {
+            printf("%d ", res[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
 }
