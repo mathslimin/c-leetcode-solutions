@@ -1,7 +1,10 @@
-/**
- * Return an array of size *returnSize.
- * Note: The returned array must be malloced, assume caller calls free().
- */
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int* getRow(int rowIndex, int* returnSize) {
     int *ret;
     int i,j;
@@ -23,4 +26,17 @@ int* getRow(int rowIndex, int* returnSize) {
 
     *returnSize = rowIndex + 1;
     return ret;
+}
+
+int main() {
+    int rowIndex = 3; // 测试用例
+    int returnSize;
+    int* row = getRow(rowIndex, &returnSize);
+    printf("The %dth row of Pascal's Triangle is: ", rowIndex);
+    for (int i = 0; i < returnSize; i++) {
+        printf("%d ", row[i]);
+    }
+    printf("\n");
+    free(row); // 释放内存空间
+    return 0;
 }
