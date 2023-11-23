@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 bool search(int* nums, int numsSize, int target) {
     int start, mid, end;
 
@@ -25,4 +32,13 @@ bool search(int* nums, int numsSize, int target) {
     }
 
     return false;
+}
+
+int main() {
+    int nums[] = {4, 5, 6, 7, 0, 1, 2};
+    int numsSize = 7;
+    int target = 0;
+    bool result = search(nums, numsSize, target);
+    printf("%d", result);
+    return 0;
 }

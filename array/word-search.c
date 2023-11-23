@@ -1,3 +1,12 @@
+//79. 单词搜索
+
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int **visited;
 int row,col;
 int len;
@@ -61,4 +70,17 @@ out:
     free(visited);
 
     return ret;
+}
+
+int main() {
+    char* board[3] = {"ABCE", "SFCS", "ADEE"};
+    char* word1 = "ABCCED";
+    char* word2 = "SEE";
+    char* word3 = "ABCB";
+    int boardSize = 3;
+    int boardColSize[3] = {4, 4, 4};
+    printf("%d", exist(board, boardSize, boardColSize, word1));
+    printf("%d", exist(board, boardSize, boardColSize, word2));
+    printf("%d", exist(board, boardSize, boardColSize, word3));
+    return 0;
 }

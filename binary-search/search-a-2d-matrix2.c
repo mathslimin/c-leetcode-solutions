@@ -6,20 +6,19 @@
 #include <limits.h>
 
 bool searchMatrix(int** matrix, int matrixRowSize, int matrixColSize, int target) {
-    int start,end,mid;
-    int tmp;
+    int row,col;
 
-    start = 0;
-    end = matrixRowSize * matrixColSize - 1;
-    while(start <= end){
-        mid = (start + end) / 2;
-        tmp= matrix[mid / matrixColSize][mid % matrixColSize];
-        if(tmp == target)
+    row = matrixRowSize - 1;
+    col = 0;
+
+    while(row >= 0 && col < matrixColSize){
+        if(matrix[row][col] == target)
             return true;
-        else if(tmp > target)
-            end = mid - 1;
+
+        if(matrix[row][col] > target)
+            --row;
         else
-            start = mid + 1;
+            ++col;
     }
 
     return false;

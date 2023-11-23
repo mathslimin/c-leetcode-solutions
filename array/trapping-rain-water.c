@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int trap(int* height, int heightSize) {
     int sum = 0;
     int max_index;
@@ -28,4 +35,12 @@ int trap(int* height, int heightSize) {
     }
 
     return sum;
+}
+
+int main() {
+    int height[] = {0,1,0,2,1,0,1,3,2,1,2,1};
+    int heightSize = sizeof(height) / sizeof(height[0]);
+    int ans = trap(height, heightSize);
+    printf("%d", ans);
+    return 0;
 }

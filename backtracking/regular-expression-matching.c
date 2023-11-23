@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 bool isMatch(char* s, char* p) {
     if(*p == 0)
         return *s == 0;
@@ -13,4 +20,12 @@ bool isMatch(char* s, char* p) {
     }
 
     return isMatch(s,p+2);
+}
+
+int main() {
+    char s[] = "aa";
+    char p[] = "a*";
+    bool result = isMatch(s, p);
+    printf("%s", result ? "true" : "false");
+    return 0;
 }

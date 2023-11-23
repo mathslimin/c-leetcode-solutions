@@ -1,6 +1,10 @@
-/**
- * Note: The returned array must be malloced, assume caller calls free().
- */
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 struct node{
     int val;
     int index;
@@ -52,4 +56,16 @@ int* twoSum(int* nums, int numsSize, int target) {
 
     free(arr);
     return ret;
+}
+
+int main()
+{
+    int nums[] = {2, 7, 11, 15};
+    int target = 9;
+    int numsSize = sizeof(nums) / sizeof(int);
+    int returnSize;
+    int* result = twoSum(nums, numsSize, target);
+    printf("[%d, %d]", result[0], result[1]);
+    free(result);
+    return 0;
 }

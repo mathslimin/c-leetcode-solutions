@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 static int leq_count(int *nums, int numsSize, int target)
 {
     int i,ret;
@@ -25,4 +32,18 @@ int findDuplicate(int* nums, int numsSize) {
     }
 
     return start;
+}
+
+int main() {
+    // 在此处定义数组并初始化
+    int nums[] = {1, 3, 4, 2, 2};
+    int numsSize = sizeof(nums) / sizeof(nums[0]);
+    
+    // 调用函数查找重复元素
+    int result = findDuplicate(nums, numsSize);
+    
+    // 输出结果
+    printf("The duplicate number is: %d", result);
+    
+    return 0;
 }

@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int mySqrt(int x) {
     long start,end,mid;
 
@@ -15,4 +22,11 @@ int mySqrt(int x) {
     }
 
     return mid;
+}
+
+int main() {
+    int x = 10;
+    int result = mySqrt(x);
+    printf("%d", result);
+    return 0;
 }

@@ -1,3 +1,12 @@
+//154. 寻找旋转排序数组中的最小值 II
+
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int findMin(int* nums, int numsSize) {
     int start,end,mid;
 
@@ -15,4 +24,12 @@ int findMin(int* nums, int numsSize) {
     }
 
     return nums[start];
+}
+
+int main() {
+    int nums[] = {2, 2, 2, 0, 1};
+    int numsSize = 5;
+    int min = findMin(nums, numsSize);
+    printf("The minimum value in the rotated sorted array is %d", min);
+    return 0;
 }

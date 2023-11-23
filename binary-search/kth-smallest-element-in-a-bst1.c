@@ -1,4 +1,11 @@
-// 230. 二叉搜索树中第K小的元素
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -7,25 +14,27 @@
 #include <limits.h>
 #include "treenode.h"
 
-/**
-
- */
-int helper(struct TreeNode* root)
+int getKth(struct TreeNode *root, int k, int *val)
 {
-    if (root == NULL)
+    if(root == NULL)
         return 0;
-    return helper(root->left) + helper(root->right) + 1;
+
+    int left = getKth(root->left,k,val);
+    if(left + 1 > k)
+        return left;
+    if(left + 1 == k){
+        *val = root->val;
+        return left+1;
+    }
+
+    return left + 1 + getKth(root->right,k-left-1,val);
 }
 
-int kthSmallest(struct TreeNode* root, int k)
-{
-    int left;
-    left = helper(root->left);
-    if (left + 1 > k)
-        return kthSmallest(root->left, k);
-    else if (left + 1 == k)
-        return root->val;
-    return kthSmallest(root->right, k - left - 1);
+int kthSmallest(struct TreeNode* root, int k) {
+    int val;
+    getKth(root,k, &val);
+
+    return val;
 }
 
 int main() {

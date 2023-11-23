@@ -6,13 +6,19 @@
 #include <limits.h>
 
 int findPeakElement(int* nums, int numsSize) {
-    int i;
+    int start,end;
+    start = 0;
+    end = numsSize - 1;
 
-    for(i = 1; i < numsSize; ++i)
-        if(nums[i-1] > nums[i])
-            return i - 1;
+    while(start < end){
+        int mid = (start + end) / 2;
+        if(nums[mid] < nums[mid+1])
+            start = mid + 1;
+        else
+            end = mid;
+    }
 
-    return numsSize - 1;
+    return start;
 }
 
 int main() {

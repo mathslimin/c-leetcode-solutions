@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int search(int* nums, int numsSize, int target) {
     int start, mid, end;
 
@@ -25,4 +32,13 @@ int search(int* nums, int numsSize, int target) {
     }
 
     return -1;
+}
+
+int main() {
+    int nums[] = {-1, 0, 3, 5, 9, 12};
+    int numsSize = sizeof(nums) / sizeof(nums[0]);
+    int target = 9;
+    int result = search(nums, numsSize, target);
+    printf("The index of target %d is %d", target, result);
+    return 0;
 }

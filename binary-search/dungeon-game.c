@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 static inline int max(int a, int b)
 {
     return a > b ? a : b;
@@ -36,4 +43,13 @@ int calculateMinimumHP(int** dungeon, int row, int col) {
     free(dp);
 
     return ret;
+}
+
+int main() {
+    int dungeon[3][3] = {{-2, -3, 3}, {-5, -10, 1}, {10, 30, -5}};
+    int* pdungeon[3] = {dungeon[0], dungeon[1], dungeon[2]};
+    int dungeonSize = 3, dungeonColSize = 3;
+    int result = calculateMinimumHP(pdungeon, dungeonSize, &dungeonColSize);
+    printf("%d\n", result);
+    return 0;
 }

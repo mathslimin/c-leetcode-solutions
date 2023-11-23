@@ -1,7 +1,10 @@
-/**
- * Return an array of size *returnSize.
- * Note: The returned array must be malloced, assume caller calls free().
- */
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 char *get_range(int start, int end)
 {
     char buf[32];
@@ -30,4 +33,15 @@ char** summaryRanges(int* nums, int numsSize, int* returnSize) {
 
     *returnSize = count;
     return ret;
+}
+
+int main() {
+    int nums[] = {0,1,2,4,5,7};
+    int numsSize = 6;
+    int returnSize;
+    char **result = summaryRanges(nums, numsSize, &returnSize);
+    for (int i = 0; i < returnSize; i++) {
+        printf("%s ", result[i]);
+    }
+    return 0;
 }

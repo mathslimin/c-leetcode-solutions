@@ -1,8 +1,10 @@
-/**
- * Return an array of arrays of size *returnSize.
- * The sizes of the arrays are returned as *columnSizes array.
- * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
- */
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int idx;
 int **ret;
 int *col;
@@ -46,4 +48,22 @@ int** subsets(int* nums, int numsSize, int** columnSizes, int* returnSize) {
     *columnSizes = col;
     free(arr);
     return ret;
+}
+
+int main() {
+    int nums[] = {1, 2, 3};
+    int numsSize = sizeof(nums) / sizeof(int);
+    int *columnSizes, returnSize, i, j;
+    int **result = subsets(nums, numsSize, &columnSizes, &returnSize);
+    for (i = 0; i < returnSize; i++) {
+        printf("[");
+        for (j = 0; j < columnSizes[i]; j++) {
+            printf("%d", result[i][j]);
+            if (j < columnSizes[i] - 1) {
+                printf(", ");
+            }
+        }
+        printf("]");
+    }
+    return 0;
 }

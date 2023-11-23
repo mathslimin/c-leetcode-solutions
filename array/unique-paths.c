@@ -1,3 +1,11 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+//62. 不同路径
+
 int uniquePaths(int m, int n) {
     int **dp;
     int i,j;
@@ -21,4 +29,11 @@ int uniquePaths(int m, int n) {
     free(dp);
 
     return ret;
+}
+
+int main() {
+    int m = 3, n = 7;
+    int result = uniquePaths(m, n);
+    printf("The number of unique paths is %d", result);
+    return 0;
 }

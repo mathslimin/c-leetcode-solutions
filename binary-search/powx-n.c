@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 double myPow(double x, int n) {
     if(n == 0)
         return 1;
@@ -19,4 +26,12 @@ double myPow(double x, int n) {
         ret = half * half;
 
     return is_neg ? 1/ret : ret;
+}
+
+int main() {
+    double x = 2.0;
+    int n = 10;
+    double result = myPow(x, n);
+    printf("%lf", result);
+    return 0;
 }
