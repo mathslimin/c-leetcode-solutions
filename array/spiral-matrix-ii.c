@@ -1,7 +1,10 @@
-/**
- * Return an array of arrays.
- * Note: The returned array must be malloced, assume caller calls free().
- */
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int** generateMatrix(int n) {
     int **ret;
     int i,j;
@@ -63,4 +66,16 @@ int** generateMatrix(int n) {
     }
 
     return ret;
+}
+
+int main() {
+    int n = 5;
+    int** matrix = generateMatrix(n);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
 }
