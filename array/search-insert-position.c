@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int searchInsert(int* nums, int numsSize, int target) {
     int start,end,mid;
 
@@ -14,4 +21,13 @@ int searchInsert(int* nums, int numsSize, int target) {
     }
 
     return nums[start] < target ? start + 1 : start;
+}
+
+int main() {
+    int nums[] = {1, 3, 5, 6};
+    int numsSize = 4;
+    int target = 5;
+    int result = searchInsert(nums, numsSize, target);
+    printf("%d", result);
+    return 0;
 }
