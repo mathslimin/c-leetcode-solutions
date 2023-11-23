@@ -1,7 +1,10 @@
-/**
- * Return an array of size *returnSize.
- * Note: The returned array must be malloced, assume caller calls free().
- */
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int* searchRange(int* nums, int numsSize, int target, int* returnSize) {
     int start, end, mid;
     int *ret;
@@ -44,4 +47,15 @@ int* searchRange(int* nums, int numsSize, int target, int* returnSize) {
     }
 
     return ret;
+}
+
+int main() {
+    int nums[] = {5, 7, 7, 8, 8, 10};
+    int numsSize = sizeof(nums) / sizeof(int);
+    int target = 8;
+    int returnSize;
+    int* result = searchRange(nums, numsSize, target, &returnSize);
+    printf("[%d, %d]", result[0], result[1]); // 输出结果
+    free(result); // 释放结果数组的内存空间
+    return 0;
 }
