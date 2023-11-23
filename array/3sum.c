@@ -56,3 +56,21 @@ int** threeSum(int* nums, int numsSize, int* returnSize) {
     *returnSize = size;
     return arr;
 }
+
+int main()
+{
+    int nums[] = {-1, 0, 1, 2, -1, -4};
+    int numsSize = 6;
+    int returnSize;
+    int** result;
+    result = threeSum(nums, numsSize, &returnSize);
+    printf("returnSize:%d \n", returnSize);
+    for (int i = 0; i < returnSize; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("%d ", result[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+    return 0;
+}
