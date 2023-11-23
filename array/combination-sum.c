@@ -1,8 +1,9 @@
-/**
- * Return an array of arrays of size *returnSize.
- * The sizes of the arrays are returned as *columnSizes array.
- * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
- */
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
 
 int top;
 int *data;
@@ -67,4 +68,31 @@ int** combinationSum(int* candidates, int candidatesSize,
     *returnSize = count;
 
     return ret;
+}
+
+int main() {
+    int candidates[] = {2, 3, 6, 7};
+    int candidatesSize = 4;
+    int target = 7;
+    int** columnSizes;
+    int returnSize;
+    int** result = combinationSum(candidates, candidatesSize, target, columnSizes, &returnSize);
+
+    // 输出结果
+    printf("Result:");
+    for (int i = 0; i < returnSize; i++) {
+        for (int j = 0; j < (*columnSizes)[i]; j++) {
+            printf("%d ", result[i][j]);
+        }
+        printf("\n");
+    }
+
+    // 释放内存
+    for (int i = 0; i < returnSize; i++) {
+        free(result[i]);
+    }
+    free(result);
+    free(*columnSizes);
+
+    return 0;
 }
