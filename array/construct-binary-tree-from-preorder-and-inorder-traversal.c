@@ -6,6 +6,14 @@
  *     struct TreeNode *right;
  * };
  */
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+#include "treenode.h"
+
 struct TreeNode *helper(int *preorder, int pre_start, int pre_end,
         int *inorder, int in_start, int in_end)
 {
@@ -30,4 +38,15 @@ struct TreeNode* buildTree(int* preorder, int preorderSize, int* inorder, int in
         return NULL;
 
     return helper(preorder,0,preorderSize-1,inorder,0,inorderSize-1);
+}
+
+int main()
+{
+    int preorder[] = {3, 9, 20, 15, 7};
+    int inorder[] = {9, 3, 15, 20, 7};
+    int inorderSize = sizeof(inorder) / sizeof(int);
+    int preorderSize = sizeof(preorder) / sizeof(int);
+    struct TreeNode* tree = buildTree(preorder, preorderSize, inorder, inorderSize);
+    printTree(tree);
+    return 0;
 }
