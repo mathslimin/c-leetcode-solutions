@@ -1,13 +1,13 @@
-
-include_directories("${PROJECT_BINARY_DIR}")
-file(GLOB_RECURSE native_srcs RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/*.c")
-foreach(srcfile IN LISTS native_srcs)
-    # Get file name without directory
-    get_filename_component(target_name ${srcfile} NAME_WE)
-    add_executable(${target_name} ${srcfile})
-    # 安装动态库和可执行程序
-    install(TARGETS ${target_name}
-        LIBRARY DESTINATION lib
-        RUNTIME DESTINATION bin
+project(array)
+cmake_minimum_required(VERSION 3.0.0)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../include)
+aux_source_directory(. PROBLEMS)
+foreach(PROBLEM ${PROBLEMS})
+    get_filename_component(PROBLEM_NAME ${PROBLEM} NAME_WE)
+    add_executable(${PROJECT_NAME}-${PROBLEM_NAME}.exe ${PROBLEM})
+    target_link_libraries(
+        ${PROJECT_NAME}-${PROBLEM_NAME}.exe
+        ${CMAKE_THREAD_LIBS_INIT}
+        m
     )
 endforeach()
