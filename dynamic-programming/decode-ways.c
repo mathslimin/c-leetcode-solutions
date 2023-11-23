@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int numDecodings(char* s) {
     int *dp;
     int i,len,value;
@@ -20,4 +27,18 @@ int numDecodings(char* s) {
     value = dp[len];
     free(dp);
     return value;
+}
+
+int main() {
+    char s1[] = "12";
+    printf("%s: %d", s1, numDecodings(s1));
+    char s2[] = "226";
+    printf("%s: %d", s2, numDecodings(s2));
+    char s3[] = "0";
+    printf("%s: %d", s3, numDecodings(s3));
+    char s4[] = "1";
+    printf("%s: %d", s4, numDecodings(s4));
+    char s5[] = "10";
+    printf("%s: %d", s5, numDecodings(s5));
+    return 0;
 }

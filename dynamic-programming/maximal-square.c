@@ -1,19 +1,9 @@
-/*
-#define max_2(x, y) ({ \
-    typeof(x) _max1 = (x); \
-    typeof(y) _max2 = (y); \
-    (void) (&_max1 == &_max2); \
-    _max1 > _max2 ? _max1 : _max2; \
-})
-
-
-#define min_2(x, y) ({ \
-    typeof(x) _min1 = (x); \
-    typeof(y) _min2 = (y); \
-    (void) (&_min1 == &_min2); \
-    _min1 < _min2 ? _min1 : _min2; \
-})
-*/
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
 
 #define max_2(x, y) ((x) > (y)) ? (x) : (y)
 #define min_2(x, y) ((x) < (y)) ? (x) : (y)
@@ -48,4 +38,13 @@ int maximalSquare(char** matrix, int matrixRowSize, int matrixColSize) {
     free(dp);
 
     return max_square;
+}
+
+int main() {
+    char* matrix[5] = {"10100", "10111", "11111", "10010", "11000"};
+    int matrixRowSize = 5;
+    int matrixColSize = 5;
+    int maxArea = maximalSquare(matrix, matrixRowSize, matrixColSize);
+    printf("Maximal Square Area: %d", maxArea);
+    return 0;
 }

@@ -1,3 +1,11 @@
+//4. 寻找两个正序数组的中位数
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int len1;
 int len2;
 
@@ -31,4 +39,12 @@ double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Si
         return findKth(nums1,0,nums2,0,len / 2 + 1);
     else
         return (findKth(nums1,0,nums2,0,len / 2) + findKth(nums1,0,nums2,0,len / 2 + 1)) / 2.0;
+}
+
+int main() {
+    int nums1[] = {1, 3};
+    int nums2[] = {2};
+    double result = findMedianSortedArrays(nums1, 2, nums2, 1);
+    printf("%f", result);
+    return 0;
 }

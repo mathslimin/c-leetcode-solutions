@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 #define min_2(x, y) ({ \
     int _x = (x); \
     int _y = (y); \
@@ -32,4 +39,19 @@ int minimumTotal(int** triangle, int triangleRowSize, int *triangleColSizes) {
 
     free(dp);
     return ret;
+}
+
+int main() {
+    int triangle[4][4] = {
+        {2},
+        {3,4},
+        {6,5,7},
+        {4,1,8,3}
+    };
+    int* ptr[4] = {triangle[0], triangle[1], triangle[2], triangle[3]};
+    int triangleRowSize = 4;
+    int triangleColSizes[4] = {1,2,3,4};
+    int result = minimumTotal(ptr, triangleRowSize, triangleColSizes);
+    printf("%d", result); // 输出：11
+    return 0;
 }

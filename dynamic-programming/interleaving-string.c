@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 bool isInterleave(char* s1, char* s2, char* s3) {
     int len1,len2,len3;
     int **dp;
@@ -36,4 +43,18 @@ bool isInterleave(char* s1, char* s2, char* s3) {
     free(dp);
 
     return ret;
+}
+
+int main() {
+    char s1[] = "aabcc";
+    char s2[] = "dbbca";
+    char s3[] = "aadbbcbcac";
+    printf("%d", isInterleave(s1, s2, s3)); // expect 1
+
+    char s4[] = "aabcc";
+    char s5[] = "dbbca";
+    char s6[] = "aadbbbaccc";
+    printf("%d", isInterleave(s4, s5, s6)); // expect 0
+
+    return 0;
 }

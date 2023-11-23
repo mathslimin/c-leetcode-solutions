@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int numTrees(int n) {
     int *dp;
     int i,j;
@@ -15,4 +22,10 @@ int numTrees(int n) {
     ret = dp[n];
     free(dp);
     return ret;
+}
+
+int main()
+{
+    printf("%d\n", numTrees(1024));
+    return 0;
 }

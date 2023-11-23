@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int max_2(int a, int b)
 {
     return a > b ? a : b;
@@ -44,4 +51,13 @@ int maxProfit(int k, int* prices, int pricesSize) {
     free(local);
     free(global);
     return value;
+}
+
+int main(){
+    int k = 2;
+    int prices[] = {3,2,6,5,0,3};
+    int pricesSize = 6;
+    int max_profit = maxProfit(k,prices,pricesSize);
+    printf("%d",max_profit);
+    return 0;
 }

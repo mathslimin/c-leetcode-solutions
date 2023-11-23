@@ -6,38 +6,25 @@
 #include <limits.h>
 
 int longestValidParentheses(char* s) {
-    int *match,*st;
-    int i,top,len,cur_count,max_count;
+    int *dp;
+    int i,len,j,max_count;
 
     len = strlen(s);
-    match = (int *)malloc(sizeof(int) * len);
-    st = (int *)malloc(sizeof(int) * len);
-    memset(match, 0, sizeof(int) * len);
-    top = -1;
+    dp = (int *)malloc(sizeof(int) * (len + 1));
+    dp[0] = 0;
+    max_count = 0;
 
-    for(i = 0; i < len; ++i){
-        if(s[i] == '('){
-            st[++top] = i;
-        }else if(top > -1){
-            match[i] = 1;
-            match[st[top]] = 1;
-            top--;
+    for(i = 1; i <= len; ++i){
+        j = i - dp[i-1] - 2;
+        if(s[i-1] == '(' || j < 0 || s[j] != '('){
+            dp[i] = 0;
+        }else{
+            dp[i] = dp[j] + dp[i-1] + 2;
+            max_count = dp[i] > max_count ? dp[i] : max_count;
         }
     }
 
-    cur_count = 0;
-    max_count = 0;
-    for(i = 0; i < len; ++i){
-        if(match[i])
-            ++cur_count;
-        else
-            cur_count = 0;
-        max_count = cur_count > max_count ? cur_count : max_count;
-    }
-
-    free(match);
-    free(st);
-
+    free(dp);
     return max_count;
 }
 

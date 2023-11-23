@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 #define max_2(x, y) ({ \
     int _x = (x); \
     int _y = (y); \
@@ -17,4 +24,14 @@ int maxSubArray(int* nums, int numsSize) {
     }
 
     return max_sum;
+}
+
+int main()
+{
+    int cards[] = {1, 2, 8, 9};
+    int cnt = 3;
+    int cardsSize = sizeof(cards) / sizeof(int);
+    int ret = maxSubArray(cards, cnt);
+    printf("ret:%d\n", ret);
+    return 0;
 }

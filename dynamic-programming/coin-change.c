@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 #define min_2(x,y) ({ \
     int _x = (x); \
     int _y = (y); \
@@ -27,4 +34,14 @@ int coinChange(int* coins, int coinsSize, int amount) {
     free(dp);
 
     return ret == MAX_VALUE ? -1 : ret;
+}
+
+int main() {
+    // 测试用例1：coins=[1,2,5], amount=11，预期输出3
+    int coins1[] = {1, 2, 5};
+    int coinsSize1 = 3;
+    int amount1 = 11;
+    int expected1 = 3;
+    int result1 = coinChange(coins1, coinsSize1, amount1);
+    printf("Test Case 1: expected=%d, result=%d", expected1, result1);
 }

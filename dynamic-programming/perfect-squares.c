@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 #define min_2(x, y) ({ \
     int _x = (x); \
     int _y = (y); \
@@ -23,4 +30,11 @@ int numSquares(int n) {
     ret = dp[n];
     free(dp);
     return ret;
+}
+
+int main() {
+    int n = 12;
+    int res = numSquares(n);
+    printf("%d", res); // expected output: 3
+    return 0;
 }

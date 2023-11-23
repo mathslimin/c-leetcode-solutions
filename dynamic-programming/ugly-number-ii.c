@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 #define min_3(x, y, z) ({ \
     int _x = (x); \
     int _y = (y); \
@@ -32,4 +39,11 @@ int nthUglyNumber(int n) {
     ret = arr[n-1];
     free(arr);
     return ret;
+}
+
+int main() {
+    int num = 1994;
+    int result = nthUglyNumber(num);
+    printf("%d = %d", num, result);
+    return 0;
 }

@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 #define min_2(x, y) ({ \
     int _x = (x); \
     int _y = (y); \
@@ -39,4 +46,11 @@ int minCut(char* s) {
     free(p);
 
     return ret;
+}
+
+int main() {
+    char s[] = "aab";
+    int ans = minCut(s);
+    printf("%d", ans);  // 输出2
+    return 0;
 }

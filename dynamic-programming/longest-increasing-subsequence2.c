@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int get_first_greater_index(int *arr, int start, int end, int target)
 {
     int mid;
@@ -32,4 +39,12 @@ int lengthOfLIS(int* nums, int numsSize) {
 
     free(dp);
     return top+1;
+}
+
+int main() {
+    int nums[] = {10,9,2,5,3,7,101,18};
+    int numsSize = sizeof(nums) / sizeof(nums[0]);
+    int res = lengthOfLIS(nums, numsSize);
+    printf("%d", res); // 输出结果应为 4
+    return 0;
 }

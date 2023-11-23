@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int max_2(int a, int b)
 {
     return a > b ? a : b;
@@ -26,4 +33,12 @@ int lengthOfLIS(int* nums, int numsSize) {
 
     free(dp);
     return ret;
+}
+
+int main() {
+    int nums[] = {10,9,2,5,3,7,101,18};
+    int numsSize = sizeof(nums) / sizeof(nums[0]);
+    int res = lengthOfLIS(nums, numsSize);
+    printf("%d", res); // 输出结果应为 4
+    return 0;
 }

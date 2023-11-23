@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int numDistinct(char* s, char* t) {
     int **dp;
     int i,j,len_s,len_t;
@@ -27,4 +34,11 @@ int numDistinct(char* s, char* t) {
     free(dp);
 
     return ret;
+}
+
+int main() {
+    char s[] = "babgbag";
+    char t[] = "bag";
+    printf("%d", numDistinct(s, t)); // 输出3
+    return 0;
 }

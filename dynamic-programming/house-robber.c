@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int rob(int* nums, int numsSize) {
     int *dp;
     int i,value;
@@ -11,4 +18,12 @@ int rob(int* nums, int numsSize) {
     value = dp[numsSize];
     free(dp);
     return value;
+}
+
+int main(){
+    int nums[] = {1,2,3,1};
+    int numsSize = 4;
+    int result = rob(nums, numsSize);
+    printf("%d", result); // 输出 4
+    return 0;
 }

@@ -6,17 +6,18 @@
 #include <limits.h>
 
 int climbStairs(int n) {
-    int *dp;
+    int d1,d2;
     int i,ret;
 
-    dp = (int *)malloc(sizeof(int) * (n + 1));
-    dp[0] = 1;
-    dp[1] = 1;
-    for(i = 2; i <= n; ++i)
-        dp[i] = dp[i-1] + dp[i-2];
+    d1 = 0;
+    d2 = 1;
+    ret = 1;
+    for(i = 1; i <= n; ++i){
+        ret = d1 + d2;
+        d1 = d2;
+        d2 = ret;
+    }
 
-    ret = dp[n];
-    free(dp);
     return ret;
 }
 

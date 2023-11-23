@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 #define min_2(x, y) ({ \
     int _x = (x); \
     int _y = (y); \
@@ -30,4 +37,16 @@ int minPathSum(int** grid, int gridRowSize, int gridColSize) {
     free(dp);
 
     return ret;
+}
+
+int main() {
+
+    // 测试minPathSum函数
+    int grid[3][3] = {{1, 3, 1}, {1, 5, 1}, {4, 2, 1}};
+    int gridRowSize = 3;
+    int gridColSize = 3;
+    int* p[3] = {grid[0], grid[1], grid[2]};
+    printf("%d\n", minPathSum(p, gridRowSize, gridColSize)); // 输出7
+
+    return 0;
 }

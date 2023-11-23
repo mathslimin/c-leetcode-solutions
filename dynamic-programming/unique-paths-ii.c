@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int uniquePathsWithObstacles(int** obstacleGrid, int obstacleGridRowSize, int obstacleGridColSize) {
     int **dp;
     int i,j;
@@ -23,4 +30,12 @@ int uniquePathsWithObstacles(int** obstacleGrid, int obstacleGridRowSize, int ob
     free(dp);
 
     return ret;
+}
+
+int main() {
+    int obstacleGrid[3][3] = {{0, 0, 0}, {0, 1, 0}, {0, 0, 0}};
+    int* ptr[3] = {obstacleGrid[0], obstacleGrid[1], obstacleGrid[2]};
+    int result = uniquePathsWithObstacles(ptr, 3, 3);
+    printf("The result is %d", result);
+    return 0;
 }

@@ -12,6 +12,12 @@
  * buy[i] = max(sell[i-2] - price, buy[i-1]);
  * sell[i] = max(buy[i-1] + price, sell[i-1]);
 */
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
 
 int max_2(int a, int b)
 {
@@ -30,4 +36,14 @@ int maxProfit(int* prices, int pricesSize) {
     }
 
     return sell;
+}
+
+int main() {
+    int prices[] = {7, 1, 5, 3, 6, 4};
+    int pricesSize = sizeof(prices) / sizeof(prices[0]);
+    
+    int result = maxProfit(prices, pricesSize);
+    printf("Max profit: %d\n", result);
+    
+    return 0;
 }

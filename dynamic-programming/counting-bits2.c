@@ -7,21 +7,12 @@
 
 int* countBits(int num, int* returnSize) {
     int *dp;
-    int cnt;
     int i;
-    int tmp;
 
     dp = (int *)malloc(sizeof(int) * (num + 1));
-    for(i = 0; i <= num; ++i){
-        cnt = 0;
-        tmp = i;
-        while(tmp){
-            cnt += (tmp & 0x1);
-            tmp >>= 1;
-        }
-
-        dp[i] = cnt;
-    }
+    dp[0] = 0;
+    for(i = 1; i <= num; ++i)
+        dp[i] = dp[i >> 1] + (i & 0x1);
 
     *returnSize = num + 1;
     return dp;

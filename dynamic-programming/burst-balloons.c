@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int maxCoins(int* nums, int numsSize) {
     int *arr;
     int **dp;
@@ -33,4 +40,12 @@ int maxCoins(int* nums, int numsSize) {
     free(dp);
 
     return tmp;
+}
+
+int main(){
+    int nums[] = {3,1,5,8};
+    int numsSize = sizeof(nums) / sizeof(int);
+    int ans = maxCoins(nums, numsSize);
+    printf("%d", ans);
+    return 0;
 }

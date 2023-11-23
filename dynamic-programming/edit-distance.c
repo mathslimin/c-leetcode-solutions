@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int minDistance(char* word1, char* word2) {
     int **dp;
     int len1,len2;
@@ -44,4 +51,12 @@ int minDistance(char* word1, char* word2) {
     free(dp);
 
     return value;
+}
+
+int main() {
+    char word1[] = "horse";
+    char word2[] = "ros";
+    int distance = minDistance(word1, word2);
+    printf("%d", distance);
+    return 0;
 }
