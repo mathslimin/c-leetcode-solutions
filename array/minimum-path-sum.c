@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int minPathSum(int** grid, int gridRowSize, int gridColSize) {
     int **arr;
     int ret;
@@ -27,4 +34,13 @@ int minPathSum(int** grid, int gridRowSize, int gridColSize) {
     free(arr);
 
     return ret;
+}
+
+int main() {
+    int grid[3][3] = {{1, 3, 1}, {1, 5, 1}, {4, 2, 1}};
+    int* gridPtr[3] = {grid[0], grid[1], grid[2]};
+    int gridColSize[3] = {3, 3, 3};
+    int result = minPathSum(gridPtr, 3, gridColSize);
+    printf("The minimum path sum is %d", result);
+    return 0;
 }
