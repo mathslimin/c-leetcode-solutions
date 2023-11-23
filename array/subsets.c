@@ -1,39 +1,63 @@
-/**
- * Return an array of arrays of size *returnSize.
- * The sizes of the arrays are returned as *columnSizes array.
- * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
- */
-int cmp(const void *a, const void *b)
-{
-    return *(const int *)a - *(const int *)b;
-}
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
 
-int** subsets(int* nums, int numsSize, int** columnSizes, int* returnSize) {
-    int **ret;
-    int *col;
+int** subsets(int* nums, int numsSize, int* returnSize, int** returnColumnSizes){
+    // 计算子集个数
     int count = 1 << numsSize;
-    int i,j;
-    int bit;
-
-    ret = (int **)malloc(sizeof(int *) * count);
-    col = (int *)malloc(sizeof(int) * count);
-
-    qsort(nums,numsSize,sizeof(int),cmp);
-
-    for(i = 0; i < count; ++i){
-        col[i] = 0;
-        ret[i] = (int *)malloc(sizeof(int *) * numsSize);
-        bit = i;
-        j = 0;
-        while(bit > 0){
-            if(bit & 1)
-                ret[i][col[i]++] = nums[j];
-            j++;
-            bit >>= 1;
+    // 分配二维数组空间
+    int** res = (int**)malloc(sizeof(int*) * count);
+    *returnColumnSizes = (int*)malloc(sizeof(int) * count);
+    // 遍历每个子集
+    for (int i = 0; i < count; i++) {
+        // 计算当前子集的元素个数
+        int size = 0;
+        for (int j = 0; j < numsSize; j++) {
+            if (i & (1 << j)) {
+                size++;
+            }
+        }
+        // 分配当前子集空间
+        res[i] = (int*)malloc(sizeof(int) * size);
+        (*returnColumnSizes)[i] = size;
+        // 将当前子集的元素加入到数组中
+        int index = 0;
+        for (int j = 0; j < numsSize; j++) {
+            if (i & (1 << j)) {
+                res[i][index++] = nums[j];
+            }
         }
     }
-
+    // 设置返回值
     *returnSize = count;
-    *columnSizes = col;
-    return ret;
+    return res;
+}
+
+int main() {
+    int nums[] = {1, 2, 3};
+    int numsSize = sizeof(nums) / sizeof(int);
+    int returnSize = 0;
+    int* returnColumnSizes = NULL;
+    int** res = subsets(nums, numsSize, &returnSize, &returnColumnSizes);
+    // 打印结果
+    for (int i = 0; i < returnSize; i++) {
+        printf("[");
+        for (int j = 0; j < returnColumnSizes[i]; j++) {
+            printf("%d", res[i][j]);
+            if (j != returnColumnSizes[i] - 1) {
+                printf(", ");
+            }
+        }
+        printf("]");
+    }
+    // 释放空间
+    for (int i = 0; i < returnSize; i++) {
+        free(res[i]);
+    }
+    free(res);
+    free(returnColumnSizes);
+    return 0;
 }
