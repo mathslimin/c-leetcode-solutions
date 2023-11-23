@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Size) {
     int *arr;
     int num = nums1Size + nums2Size;
@@ -23,4 +30,17 @@ double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Si
 
     free(arr);
     return ret;
+}
+
+int main() {
+    int nums1[] = {1, 2, 4, 7};
+    int nums1Size = 4;
+    int nums2[] = {3, 5, 6};
+    int nums2Size = 3;
+
+    double median = findMedianSortedArrays(nums1, nums1Size, nums2, nums2Size);
+
+    printf("The median of the two sorted arrays is %.2f", median);
+
+    return 0;
 }
