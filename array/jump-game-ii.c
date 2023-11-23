@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int jump(int* nums, int numsSize) {
     int ret = 0;
     int i;
@@ -15,4 +22,12 @@ int jump(int* nums, int numsSize) {
     }
 
     return ret;
+}
+
+int main() {
+    int nums[] = {2, 3, 1, 1, 4};
+    int numsSize = sizeof(nums) / sizeof(int);
+    int steps = jump(nums, numsSize);
+    printf("Minimum number of jumps to reach the end: %d", steps);
+    return 0;
 }
