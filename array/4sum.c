@@ -64,3 +64,20 @@ int** fourSum(int* nums, int numsSize, int target, int* returnSize) {
     *returnSize = size;
     return arr;
 }
+
+
+void main()
+{
+    int nums[6] = {1, 0, -1, 0, -2, 2};
+    // after sort {-2, -1, 0, 0, 1, 2}
+
+    int numsSize = 6;
+    int target = 0;
+    int returnSize = 0;
+    // int** returnColumnSizes = (int**)malloc(sizeof(int*) * numsSize * numsSize * numsSize);
+
+    int** ans = fourSum(nums, numsSize, target, &returnSize);
+    for (int index = 0; index < returnSize; index++) {
+        printf("%d\t%d\t%d\t%d\n", ans[index][0], ans[index][1], ans[index][2], ans[index][3]);
+    }
+}
