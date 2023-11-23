@@ -1,14 +1,14 @@
-/**
- * Definition for an interval.
- * struct Interval {
- *     int start;
- *     int end;
- * };
- */
-/**
- * Return an array of size *returnSize.
- * Note: The returned array must be malloced, assume caller calls free().
- */
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+struct Interval {
+    int start;
+    int end;
+};
+
 struct Interval* insert(struct Interval* intervals, int intervalsSize,
     struct Interval newInterval, int* returnSize) {
     struct Interval *ret;
@@ -44,4 +44,20 @@ struct Interval* insert(struct Interval* intervals, int intervalsSize,
 
     *returnSize = count;
     return ret;
+}
+
+int main()
+{
+    // 测试样例
+    struct Interval intervals[4] = {{1, 2}, {3, 5}, {6, 7}, {8, 10}};
+    int intervalsSize = 4;
+    struct Interval newInterval = {4, 6};
+    int returnSize;
+    struct Interval* result = insert(intervals, intervalsSize, newInterval, &returnSize);
+    for (int i = 0; i < returnSize; i++) {
+        printf("[%d, %d] ", result[i].start, result[i].end);
+    }
+    printf("\n");
+    free(result);
+    return 0;
 }
