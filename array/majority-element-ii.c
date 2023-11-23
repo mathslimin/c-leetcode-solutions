@@ -1,7 +1,10 @@
-/**
- * Return an array of size *returnSize.
- * Note: The returned array must be malloced, assume caller calls free().
- */
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int* majorityElement(int* nums, int numsSize, int* returnSize) {
     int *ret;
     int c1,c2,arr1,arr2;
@@ -57,4 +60,17 @@ int* majorityElement(int* nums, int numsSize, int* returnSize) {
     *returnSize = size;
 
     return ret;
+}
+
+int main() {
+    int nums[] = {1, 1, 1, 2, 2, 3};
+    int numsSize = sizeof(nums) / sizeof(nums[0]);
+    int returnSize = 0;
+    int* res = majorityElement(nums, numsSize, &returnSize);
+    for (int i = 0; i < returnSize; i++) {
+        printf("%d ", res[i]);
+    }
+    printf("\n");
+    free(res);
+    return 0;
 }
