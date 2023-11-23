@@ -1,7 +1,10 @@
-/**
- * Return an array of size *returnSize.
- * Note: The returned array must be malloced, assume caller calls free().
- */
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int* plusOne(int* digits, int digitsSize, int* returnSize) {
     int *arr;
     int i;
@@ -23,4 +26,19 @@ int* plusOne(int* digits, int digitsSize, int* returnSize) {
 
     *returnSize = digitsSize + 1 - offset;
     return arr + offset;
+}
+
+int main(){
+    int digits[] = {1,2,3};
+    int digitsSize = 3;
+    int returnSize;
+    int* result = plusOne(digits, digitsSize, &returnSize);
+    printf("[");
+    for(int i = 0; i < returnSize; i++){
+        printf("%d", result[i]);
+        if(i != returnSize - 1) printf(",");
+    }
+    printf("]");
+    free(result);
+    return 0;
 }
