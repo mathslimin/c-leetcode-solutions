@@ -1,7 +1,10 @@
-/**
- * Return an array of size *returnSize.
- * Note: The returned array must be malloced, assume caller calls free().
- */
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int* productExceptSelf(int* nums, int numsSize, int* returnSize) {
     int product = 1;
     int *left;
@@ -24,4 +27,17 @@ int* productExceptSelf(int* nums, int numsSize, int* returnSize) {
     *returnSize = numsSize;
     free(right);
     return left;
+}
+
+int main() {
+    int nums[] = {1, 2, 3, 4};
+    int numsSize = sizeof(nums) / sizeof(int);
+    int returnSize;
+    int *result = productExceptSelf(nums, numsSize, &returnSize);
+    for (int i = 0; i < returnSize; i++) {
+        printf("%d ", result[i]);
+    }
+    printf("\n");
+    free(result);
+    return 0;
 }
