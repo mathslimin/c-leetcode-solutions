@@ -6,3 +6,4 @@ output
 .subRepoRulesets
 tags
 tags-*
+*.out

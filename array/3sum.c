@@ -23,7 +23,7 @@ int *get_3sum(int a, int b, int c)
     return ret;
 }
 
-int** threeSum(int* nums, int numsSize, int* returnSize) {
+int** threeSum(int* nums, int numsSize, int* returnSize, int** returnColumnSizes) {
     int i,start,end,sum;
     int size = 0;
     int count = 500;
@@ -42,6 +42,7 @@ int** threeSum(int* nums, int numsSize, int* returnSize) {
 
             if(start > i + 1 && nums[start-1] == nums[start]){
                 ++start;
+
                 continue;
             }
 
@@ -70,7 +71,8 @@ int main()
     int numsSize = 6;
     int returnSize;
     int** result;
-    result = threeSum(nums, numsSize, &returnSize);
+    int* returnColSize = NULL;
+    result = threeSum(nums, numsSize, &returnSize, &returnColSize);
     printf("returnSize:%d \n", returnSize);
     for (int i = 0; i < returnSize; i++) {
         for (int j = 0; j < 3; j++) {
