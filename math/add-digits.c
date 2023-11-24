@@ -1,8 +1,15 @@
-int addDigits(int num) {
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int addDigits(int num)
+{
     int ret = num;
-    while(num > 9){
+    while (num > 9) {
         ret = 0;
-        while(num){
+        while (num) {
             ret += (num % 10);
             num /= 10;
         }
@@ -10,4 +17,10 @@ int addDigits(int num) {
     }
 
     return ret;
+}
+
+int main() {
+    int num = 38;
+    printf("%d", addDigits(num)); // expected output: 2
+    return 0;
 }

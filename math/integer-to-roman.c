@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 char* intToRoman(int num) {
     char symbols[][3] = {
         "M", "CM", "D", "CD",
@@ -30,4 +37,13 @@ char* intToRoman(int num) {
     }
 
     return ret;
+}
+
+int main()
+{
+    int num = 1994;
+    char* result = intToRoman(num);
+    printf("%d = %s", num, result);
+    free(result);
+    return 0;
 }

@@ -1,14 +1,21 @@
-int calculate(char* s) {
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int calculate(char* s)
+{
     int stack[1000];
     int value;
     int top = -1;
     int ret = 0;
     int type = 1;
 
-    while(*s){
-        if(isdigit(*s)){
+    while (*s) {
+        if (isdigit(*s)) {
             value = 0;
-            while(isdigit(*s)){
+            while (isdigit(*s)) {
                 value = value * 10 + *s - '0';
                 s++;
             }
@@ -16,16 +23,16 @@ int calculate(char* s) {
             ret += (type * value);
         }
 
-        if(*s == '+'){
+        if (*s == '+') {
             type = 1;
-        }else if(*s == '-'){
+        } else if (*s == '-') {
             type = -1;
-        }else if(*s == '('){
+        } else if (*s == '(') {
             stack[++top] = ret;
             stack[++top] = type;
             ret = 0;
             type = 1;
-        }else if(*s == ')'){
+        } else if (*s == ')') {
             type = stack[top--];
             ret = stack[top--] + type * ret;
         }
@@ -34,4 +41,11 @@ int calculate(char* s) {
     }
 
     return ret;
+}
+
+int main(){
+    char s[] = " 3+5 / 2 ";
+    int res = calculate(s);
+    printf("%d", res);
+    return 0;
 }
