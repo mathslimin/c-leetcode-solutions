@@ -1,19 +1,26 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 int get_value(int left, int right, int op)
 {
-    if(op == '-')
+    if (op == '-')
         return left - right;
-    else if(op == '+')
+    else if (op == '+')
         return left + right;
 
     return 0;
 }
 
-int calculate(char* s) {
-    int *op_st;
-    int *val_st;
+int calculate(char* s)
+{
+    int* op_st;
+    int* val_st;
     int op_top;
     int val_top;
-    int left,right;
+    int left, right;
     int len;
     int tmp;
     int op;
@@ -24,15 +31,15 @@ int calculate(char* s) {
     val_st = malloc(sizeof(int) * len);
     op_top = val_top = -1;
 
-    while(*s){
-        if(*s == ' '){
+    while (*s) {
+        if (*s == ' ') {
             s++;
             continue;
         }
 
-        if(isdigit(*s)){
+        if (isdigit(*s)) {
             tmp = 0;
-            while(isdigit(*s)){
+            while (isdigit(*s)) {
                 tmp = 10 * tmp + *s - '0';
                 s++;
             }
@@ -40,11 +47,10 @@ int calculate(char* s) {
             continue;
         }
 
-        switch(*s){
+        switch (*s) {
             case '+':
             case '-':
-                if(op_top > -1  && (op_st[op_top] == '+' ||
-                    op_st[op_top] == '-')){
+                if (op_top > -1 && (op_st[op_top] == '+' || op_st[op_top] == '-')) {
                     right = val_st[val_top--];
                     left = val_st[val_top--];
                     tmp = get_value(left, right, op_st[op_top--]);
@@ -57,7 +63,7 @@ int calculate(char* s) {
                 op_st[++op_top] = *s;
                 break;
             case ')':
-                while(op_top > -1 && ((op = op_st[op_top--]) != '(')){
+                while (op_top > -1 && ((op = op_st[op_top--]) != '(')) {
                     right = val_st[val_top--];
                     left = val_st[val_top--];
                     tmp = get_value(left, right, op);
@@ -70,7 +76,7 @@ int calculate(char* s) {
         s++;
     }
 
-    while(op_top > -1){
+    while (op_top > -1) {
         right = val_st[val_top--];
         left = val_st[val_top--];
         tmp = get_value(left, right, op_st[op_top--]);
@@ -82,4 +88,11 @@ int calculate(char* s) {
     free(val_st);
 
     return tmp;
+}
+
+int main(){
+    char s[] = " 3+5 / 2 ";
+    int res = calculate(s);
+    printf("%d", res);
+    return 0;
 }

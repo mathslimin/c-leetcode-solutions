@@ -1,64 +1,52 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+#define MAX_SIZE 1000
+
 typedef struct {
-    int *q1;
-    int *q2;
-    int f1;
-    int e1;
-    int f2;
-    int e2;
-} Stack;
+    int data[MAX_SIZE];
+    int top;
+} MyStack;
 
-/* Create a stack */
-void stackCreate(Stack *stack, int maxSize) {
-    stack->q1 = malloc(sizeof(int) * maxSize);
-    stack->q2 = malloc(sizeof(int) * maxSize);
-    stack->f1 = 0;
-    stack->e1 = 0;
-    stack->f2 = 0;
-    stack->e2 = 0;
+/** Initialize your data structure here. */
+
+MyStack* myStackCreate() {
+    MyStack* stack = (MyStack*)malloc(sizeof(MyStack));
+    stack->top = -1;
+    return stack;
 }
 
-/* Push element x onto stack */
-void stackPush(Stack *stack, int element) {
-    if(stack->f1 == stack->e1){
-        stack->q1[stack->e1++] = element;
-        while(stack->f2 != stack->e2){
-            int value = stack->q2[stack->f2++];
-            stack->q1[stack->e1++] = value;
-        }
-        stack->f2= stack->e2 = 0;
-    }else{
-        stack->q2[stack->e2++] = element;
-        while(stack->f1 != stack->e1){
-            int value = stack->q1[stack->f1++];
-            stack->q2[stack->e2++] = value;
-        }
-        stack->f1 = stack->e1 = 0;
-    }
+/** Push element x onto stack. */
+void myStackPush(MyStack* obj, int x) {
+    obj->data[++obj->top] = x;
 }
 
-/* Removes the element on top of the stack */
-void stackPop(Stack *stack) {
-    if(stack->f1 != stack->e1)
-        stack->f1++;
-    else
-        stack->f2++;
+/** Removes the element on top of the stack and returns that element. */
+int myStackPop(MyStack* obj) {
+    return obj->data[obj->top--];
 }
 
-/* Get the top element */
-int stackTop(Stack *stack) {
-    if(stack->f1 != stack->e1)
-        return stack->q1[stack->f1];
-    else
-        return stack->q2[stack->f2];
+/** Get the top element. */
+int myStackTop(MyStack* obj) {
+    return obj->data[obj->top];
 }
 
-/* Return whether the stack is empty */
-bool stackEmpty(Stack *stack) {
-    return stack->f1 == stack->e1 && stack->f2 == stack->e2;
+/** Returns whether the stack is empty. */
+bool myStackEmpty(MyStack* obj) {
+    return obj->top == -1;
 }
 
-/* Destroy the stack */
-void stackDestroy(Stack *stack) {
-    free(stack->q1);
-    free(stack->q2);
+void myStackFree(MyStack* obj) {
+    free(obj);
+}
+
+int main() {
+    MyStack* stack = myStackCreate();
+    myStackPush(stack, 1);
+    myStackPush(stack, 2);
+    printf("%d\n", myStackTop(stack));
+    printf("%d\n", myStackPop(stack));
+    printf("%d\n", myStackEmpty(stack));
+    myStackFree(stack);
+    return 0;
 }
