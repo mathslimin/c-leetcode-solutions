@@ -1,33 +1,32 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     struct TreeNode *left;
- *     struct TreeNode *right;
- * };
- */
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "treenode.h"
+
 int countNodes(struct TreeNode* root) {
-    int lh = 0;
-    int rh = 0;
-    struct TreeNode *node;
-
-    if(root == NULL)
+    if (root == NULL) {
         return 0;
-
-    node = root;
-    while(node){
-        ++lh;
-        node = node->left;
     }
+    int leftCount = countNodes(root->left);
+    int rightCount = countNodes(root->right);
+    return leftCount + rightCount + 1;
+}
 
-    node = root;
-    while(node){
-        ++rh;
-        node = node->right;
-    }
-
-    if(lh == rh)
-        return (1 << lh) - 1;
-
-    return 1 + countNodes(root->left) + countNodes(root->right);
+int main() {
+    struct TreeNode node1 = {1, NULL, NULL};
+    struct TreeNode node2 = {2, NULL, NULL};
+    struct TreeNode node3 = {3, NULL, NULL};
+    struct TreeNode node4 = {4, NULL, NULL};
+    struct TreeNode node5 = {5, NULL, NULL};
+    struct TreeNode node6 = {6, NULL, NULL};
+    node1.left = &node2;
+    node1.right = &node3;
+    node2.left = &node4;
+    node2.right = &node5;
+    node3.left = &node6;
+    int count = countNodes(&node1);
+    printf("The number of nodes in the binary tree is %d", count);
+    return 0;
 }

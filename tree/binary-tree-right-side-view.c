@@ -1,55 +1,73 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "treenode.h"
+
 /**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     struct TreeNode *left;
- *     struct TreeNode *right;
- * };
- */
-/**
- * Return an array of size *returnSize.
- * Note: The returned array must be malloced, assume caller calls free().
+
  */
 int* rightSideView(struct TreeNode* root, int* returnSize) {
-    struct TreeNode **st;
-    struct TreeNode **next_st;
-    int top = -1;
-    int next_top = -1;
-    int *arr;
-    int idx = 0;
-    int arr_size = 32;
-
-    arr = malloc(arr_size * sizeof(int));
-    st = malloc(100 * sizeof(struct TreeNode *));
-    next_st = malloc(100 * sizeof(struct TreeNode *));
-
-
-    if(root)
-        st[++top] = root;
-
-    while( top > -1){
-        if(idx >= arr_size){
-            arr_size <<= 1;
-            arr = realloc(arr, sizeof(int) * arr_size);
-        }
-        arr[idx++] = st[top]->val;
-        for(int i = 0; i <= top; ++i){
-            if(st[i]->left)
-                next_st[++next_top] = st[i]->left;
-            if(st[i]->right)
-                next_st[++next_top] = st[i]->right;
-        }
-
-        struct TreeNode **swap = st;
-        st = next_st;
-        next_st = swap;
-
-        top = next_top;
-        next_top = -1;
+    if (root == NULL) { // 如果根节点为空，直接返回空数组
+        *returnSize = 0;
+        return NULL;
     }
+    int* res = (int*)malloc(sizeof(int) * 1000); // 申请一个足够大的数组
+    int front = 0, rear = 0; // 队列的头尾指针
+    struct TreeNode* q[1000]; // 定义一个队列
+    q[rear++] = root; // 将根节点入队
+    while (front < rear) { // 队列不为空时循环
+        int n = rear - front; // 当前层的节点数
+        for (int i = 0; i < n; i++) { // 遍历当前层的所有节点
+            struct TreeNode* node = q[front++]; // 取出队列中的节点
+            if (i == n - 1) { // 如果是当前层的最后一个节点
+                res[*returnSize] = node->val; // 将节点的值保存在结果数组中
+                (*returnSize)++; // 结果数组的大小加1
+            }
+            if (node->left) { // 如果左子节点不为空，将其入队
+                q[rear++] = node->left;
+            }
+            if (node->right) { // 如果右子节点不为空，将其入队
+                q[rear++] = node->right;
+            }
+        }
+    }
+    return res; // 返回结果数组
+}
 
-    *returnSize = idx;
-    free(st);
-    free(next_st);
-    return arr;
+int main() {
+    // 构造二叉树
+    struct TreeNode* root = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->val = 1;
+    root->left = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->left->val = 2;
+    root->left->left = NULL;
+    root->left->right = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->left->right->val = 5;
+    root->left->right->left = NULL;
+    root->left->right->right = NULL;
+    root->right = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->right->val = 3;
+    root->right->left = NULL;
+    root->right->right = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->right->right->val = 4;
+    root->right->right->left = NULL;
+    root->right->right->right = NULL;
+    // 调用函数
+    int returnSize = 0;
+    int* res = rightSideView(root, &returnSize);
+    // 输出结果
+    for (int i = 0; i < returnSize; i++) {
+        printf("%d ", res[i]);
+    }
+    printf("\n");
+    // 释放内存
+    free(root->left->right);
+    free(root->left);
+    free(root->right->right);
+    free(root->right);
+    free(root);
+    free(res);
+    return 0;
 }

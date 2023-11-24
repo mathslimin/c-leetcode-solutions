@@ -1,31 +1,46 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+#include "treenode.h"
+
 /**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     struct TreeNode *left;
- *     struct TreeNode *right;
- * };
+
  */
-struct TreeNode* rescan(int* inorder, int left_in, int* postorder, int left_post, int len)
+struct TreeNode* helper(int* inorder, int in_start, int in_end, int* postorder, int post_start, int post_end)
 {
-    if(len <= 0)
+    if (in_end < in_start)
         return NULL;
-    struct TreeNode *node = malloc(sizeof(struct TreeNode));
 
-    int node_pos = left_in;
-    while(node_pos < left_in + len){
-        if(inorder[node_pos] == postorder[left_post + len - 1])
+    struct TreeNode* root = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->val = postorder[post_end];
+
+    int mid;
+    for (mid = in_start; mid <= in_end; ++mid)
+        if (inorder[mid] == postorder[post_end])
             break;
-        ++node_pos;
-    }
 
-    node->val = postorder[left_post + len - 1];
-    node->left = rescan(inorder,left_in,postorder,left_post,node_pos-left_in);
-    node->right = rescan(inorder,node_pos+1,postorder,left_post + node_pos - left_in,
-            len - 1 - (node_pos - left_in));
-    return node;
+    root->left = helper(inorder, in_start, mid - 1, postorder, post_start, post_start + mid - in_start - 1);
+    root->right = helper(inorder, mid + 1, in_end, postorder, post_start + mid - in_start, post_end - 1);
+
+    return root;
 }
 
-struct TreeNode* buildTree(int* inorder, int inorderSize, int* postorder, int postorderSize) {
-    return rescan(inorder, 0, postorder,0,postorderSize);
+struct TreeNode* buildTree(int* inorder, int inorderSize, int* postorder, int postorderSize)
+{
+    if (inorderSize == 0)
+        return NULL;
+    return helper(inorder, 0, inorderSize - 1, postorder, 0, postorderSize - 1);
+}
+
+int main()
+{
+    int postorder[] = {3, 9, 20, 15, 7};
+    int inorder[] = {9, 3, 15, 20, 7};
+    int inorderSize = sizeof(inorder) / sizeof(int);
+    int postorderSize = sizeof(postorder) / sizeof(int);
+    struct TreeNode* root = buildTree(inorder, inorderSize, postorder, postorderSize);
+    printTree(root);
 }

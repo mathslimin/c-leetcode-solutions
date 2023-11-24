@@ -1,49 +1,67 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 /**
- * Definition for binary tree with next pointer.
- * struct TreeLinkNode {
- *  int val;
- *  struct TreeLinkNode *left, *right, *next;
- * };
- *
+116. 填充每个节点的下一个右侧节点指针
+
  */
-void connect(struct TreeLinkNode *root) {
-    if(root == NULL)
-        return ;
 
-    int arr_size = 64;
-    int next_size = 64;
-    struct TreeLinkNode **arr = malloc(sizeof(struct TreeLinkNode *) * arr_size);
-    struct TreeLinkNode **next_arr = malloc(sizeof(struct TreeLinkNode *) * next_size);
-    int top;
-    int next_top;
+struct Node {
+  int val;
+  struct Node *left;
+  struct Node *right;
+  struct Node *next;
+};
 
-    top = -1;
-    arr[++top] = root;
-
-    while(top > -1){
-        next_top = -1;
-        for(int i = 0; i <= top; ++i){
-            arr[i]->next = (i != top) ? arr[i+1] : NULL;
-            if(next_top + 2 >= arr_size){
-                arr_size <<= 1;
-                next_arr = realloc(next_arr, sizeof(struct TreeLinkNode *) * arr_size);
-            }
-            if(arr[i]->left)
-                next_arr[++next_top] = arr[i]->left;
-            if(arr[i]->right)
-                next_arr[++next_top] = arr[i]->right;
-        }
-
-        struct TreeLinkNode **tmp = arr;
-        arr = next_arr;
-        next_arr = tmp;
-        top = next_top;
-
-        int size = arr_size;
-        arr_size = next_size;
-        next_size = size;
+struct Node* connect(struct Node* root) {
+    if (!root || !root->left) {
+        return root;
     }
+    root->left->next = root->right;
+    if (root->next) {
+        root->right->next = root->next->left;
+    }
+    connect(root->left);
+    connect(root->right);
+    return root;
+}
 
-    free(arr);
-    free(next_arr);
+struct Node* createNode(int val) {
+    struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+    node->val = val;
+    node->left = NULL;
+    node->right = NULL;
+    node->next = NULL;
+    return node;
+}
+
+void printTree(struct Node* root) {
+    if (root) {
+        printf("%d -> ", root->val);
+        if (root->next) {
+            printf("%d", root->next->val);
+        } else {
+            printf("NULL");
+        }
+        printTree(root->left);
+        printTree(root->right);
+    }
+}
+
+int main() {
+    struct Node* root = createNode(1);
+    root->left = createNode(2);
+    root->right = createNode(3);
+    root->left->left = createNode(4);
+    root->left->right = createNode(5);
+    root->right->left = createNode(6);
+    root->right->right = createNode(7);
+
+    connect(root);
+    printTree(root);
+
+    return 0;
 }

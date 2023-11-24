@@ -1,73 +1,76 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "treenode.h"
+
 /**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     struct TreeNode *left;
- *     struct TreeNode *right;
- * };
  */
-/**
- * Return an array of arrays of size *returnSize.
- * The sizes of the arrays are returned as *columnSizes array.
- * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
- */
+void dfs(struct TreeNode* root, int level, int** res, int* colSizes) {
+    if (root == NULL) {
+        return;
+    }
+    if (level % 2 == 0) {
+        res[level][colSizes[level]++] = root->val;
+    } else {
+        res[level][--colSizes[level]] = root->val;
+    }
+    dfs(root->left, level + 1, res, colSizes);
+    dfs(root->right, level + 1, res, colSizes);
+}
+
 int** zigzagLevelOrder(struct TreeNode* root, int** columnSizes, int* returnSize) {
-    int left2right = 0;
-    int **arr;
-    int arr_size = 64;
-    int row = 0;
-    int *col_size;
-    struct TreeNode **queue;
-    int queue_count = 0;
-    struct TreeNode **next_queue;
-    int next_queue_count= 0;
-    int i;
-
-    arr = malloc(sizeof(int *) * arr_size);
-    col_size = malloc(sizeof(int) * arr_size);
-
-    queue = malloc(sizeof(struct TreeNode *) * 128);
-    next_queue = malloc(sizeof(struct TreeNode *) * 128);
-
-    if(root)
-        queue[queue_count++] = root;
-
-    while(queue_count > 0){
-        int *ele = malloc(sizeof(int) * queue_count);
-        col_size[row] = queue_count;
-        for(i = 0; i < queue_count; ++i){
-            ele[i] = queue[i]->val;
-
+    if (root == NULL) {
+        *returnSize = 0;
+        return NULL;
+    }
+    int depth = 0;
+    int* colSizes = (int*)malloc(sizeof(int) * 1000);
+    int** res = (int**)malloc(sizeof(int*) * 1000);
+    for (int i = 0; i < 1000; i++) {
+        colSizes[i] = 0;
+        res[i] = (int*)malloc(sizeof(int) * 1000);
+    }
+    dfs(root, 0, res, colSizes);
+    for (int i = 0; i < 1000; i++) {
+        if (colSizes[i] > 0) {
+            depth++;
         }
-        for(i = queue_count-1; i >= 0; --i){
-            if(left2right){
-                if(queue[i]->left)
-                    next_queue[next_queue_count++] = queue[i]->left;
-                if(queue[i]->right)
-                    next_queue[next_queue_count++] = queue[i]->right;
-            }else{
-                if(queue[i]->right)
-                    next_queue[next_queue_count++] = queue[i]->right;
-                if(queue[i]->left)
-                    next_queue[next_queue_count++] = queue[i]->left;
-            }
+    }
+    *columnSizes = colSizes;
+    *returnSize = depth;
+    return res;
+}
+
+int main() {
+    struct TreeNode* root = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->val = 3;
+    root->left = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->left->val = 9;
+    root->left->left = NULL;
+    root->left->right = NULL;
+    root->right = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->right->val = 20;
+    root->right->left = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->right->left->val = 15;
+    root->right->left->left = NULL;
+    root->right->left->right = NULL;
+    root->right->right = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->right->right->val = 7;
+    root->right->right->left = NULL;
+    root->right->right->right = NULL;
+
+    int* colSizes;
+    int returnSize;
+    int** res = zigzagLevelOrder(root, &colSizes, &returnSize);
+
+    for (int i = 0; i < returnSize; i++) {
+        for (int j = 0; j < colSizes[i]; j++) {
+            printf("%d ", res[i][j]);
         }
-
-        arr[row] = ele;
-        struct TreeNode **swap = queue;
-        queue = next_queue;
-        next_queue = swap;
-
-        queue_count = next_queue_count;
-        next_queue_count = 0;
-
-        left2right ^= 1;
-        row++;
+        printf("\n");
     }
 
-    free(queue);
-    free(next_queue);
-    *returnSize = row;
-    *columnSizes = col_size;
-    return arr;
+    return 0;
 }
