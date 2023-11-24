@@ -1,41 +1,58 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
+#include "listnode.h"
+
 /**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     struct ListNode *next;
- * };
+
  */
-struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *headB) {
-    int len_a = 0;
-    int len_b = 0;
-    int n;
-    struct ListNode *la = headA;
-    struct ListNode *lb = headB;
-
-    while(la){
-        len_a++;
-        la = la->next;
+struct ListNode* getIntersectionNode(struct ListNode* headA, struct ListNode* headB) {
+    if (headA == NULL || headB == NULL) {
+        return NULL;
     }
-    while(lb){
-        len_b++;
-        lb = lb->next;
+    struct ListNode* pA = headA;
+    struct ListNode* pB = headB;
+    while (pA != pB) {
+        pA = (pA == NULL) ? headB : pA->next;
+        pB = (pB == NULL) ? headA : pB->next;
     }
+    return pA;
+}
 
-    la = (len_a > len_b) ? headA : headB;
-    lb = (la == headA) ? headB : headA;
+int main() {
+    // 构造两个链表
+    struct ListNode node1 = {1, NULL};
+    struct ListNode node2 = {2, NULL};
+    struct ListNode node3 = {3, NULL};
+    struct ListNode node4 = {4, NULL};
+    struct ListNode node5 = {5, NULL};
+    struct ListNode node6 = {6, NULL};
+    struct ListNode node7 = {7, NULL};
 
-    n = abs(len_a - len_b);
-    while(n){
-        la = la->next;
-        n--;
+    struct ListNode* headA = &node1;
+    struct ListNode* headB = &node4;
+
+    headA->next = &node2;
+    headB->next = &node5;
+
+    node2.next = &node3;
+    node3.next = &node6;
+    node5.next = &node6;
+
+    node6.next = &node7;
+
+    // 测试函数
+    struct ListNode* intersection = getIntersectionNode(headA, headB);
+
+    // 输出结果
+    if (intersection == NULL) {
+        printf("两个链表没有交点");
+    } else {
+        printf("两个链表的交点是：%d", intersection->val);
     }
-
-    while(la && lb){
-        if(la == lb)
-            return la;
-        la = la->next;
-        lb = lb->next;
-    }
-
-    return NULL;
+    return 0;
 }
