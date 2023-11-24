@@ -1,4 +1,4 @@
-project(backtracking)
+project(binary-search)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../include)
 aux_source_directory(. PROBLEMS)
 
