@@ -31,6 +31,7 @@ add_subdirectory(hash-table)
 add_subdirectory(math)         
 add_subdirectory(strings)
 add_subdirectory(two-pointers)
+add_subdirectory(template)
 
 SET(CMAKE_INSTALL_PREFIX ${TOP_SOURCE_DIR}/output)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
