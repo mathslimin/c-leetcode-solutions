@@ -5,55 +5,66 @@
 #include <string.h>
 #include <limits.h>
 // 90. 子集 II
-
-int **ret;
-int *col;
-int size;
-int alloc_size;
-int idx;
-
-void helper(int *arr, int len, int *nums, int pos)
-{
-    int i;
-
-    ret[idx] = (int *)malloc(sizeof(int) * len);
-    for(i = 0; i < len; ++i){
-        ret[idx][i] = arr[i];
-    }
-    col[idx] = len;
-    idx++;
-
-    for(i = pos; i < size; ++i){
-        if(i > pos && nums[i-1] == nums[i])
-            continue;
-        arr[len] = nums[i];
-        helper(arr,len+1,nums,i+1);
-    }
+int cmp(const void *a, const void *b) {
+    return *(int *)a - *(int *)b;
 }
 
-int cmp(const void *a, const void *b)
-{
-    return *(const int *)a - *(const int *)b;
-}
-
-int** subsetsWithDup(int* nums, int numsSize, int** columnSizes, int* returnSize) {
-    int *arr;
-    size = numsSize;
-    alloc_size = 1 << numsSize;
-    idx = 0;
-
-    ret = (int **)malloc(sizeof(int *) * alloc_size);
-    col = (int *)malloc(sizeof(int) * alloc_size);
-    arr = (int *)malloc(sizeof(int) * numsSize);
-
-    qsort(nums,numsSize,sizeof(int), cmp);
-
-    helper(arr,0,nums,0);
-
-    free(arr);
-    *columnSizes = col;
-    *returnSize = idx;
-    return ret;
+int** subsetsWithDup(int* nums, int numsSize, int* returnSize, int** returnColumnSizes){
+    // 计算子集个数
+    int subsetCount = 1 << numsSize;
+    // 分配内存
+    int **result = (int **)malloc(subsetCount * sizeof(int *));
+    *returnColumnSizes = (int *)malloc(subsetCount * sizeof(int));
+    // 对数组进行排序
+    qsort(nums, numsSize, sizeof(int), cmp);
+    // 遍历所有子集
+    for (int i = 0; i < subsetCount; i++) {
+        // 分配内存
+        result[i] = (int *)malloc(numsSize * sizeof(int));
+        (*returnColumnSizes)[i] = 0;
+        // 遍历每一位
+        for (int j = 0; j < numsSize; j++) {
+            // 判断该位是否为1
+            if (i & (1 << j)) {
+                // 如果是1，则将该数加入子集中
+                result[i][(*returnColumnSizes)[i]++] = nums[j];
+            }
+        }
+    }
+    // 去重
+    int **temp = (int **)malloc(subsetCount * sizeof(int *));
+    int tempCount = 0;
+    for (int i = 0; i < subsetCount; i++) {
+        int isDuplicate = 0;
+        for (int j = 0; j < tempCount; j++) {
+            if ((*returnColumnSizes)[i] == (*returnColumnSizes)[j]) {
+                int k = 0;
+                for (; k < (*returnColumnSizes)[i]; k++) {
+                    if (result[i][k] != temp[j][k]) {
+                        break;
+                    }
+                }
+                if (k == (*returnColumnSizes)[i]) {
+                    isDuplicate = 1;
+                    break;
+                }
+            }
+        }
+        if (!isDuplicate) {
+            temp[tempCount] = result[i];
+            tempCount++;
+        }
+    }
+    // 释放内存
+    for (int i = 0; i < subsetCount; i++) {
+        if (result[i] != temp[i]) {
+            free(result[i]);
+        }
+    }
+    free(result);
+    // 返回结果
+    *returnSize = tempCount;
+    return temp;
 }
 
 int main() {

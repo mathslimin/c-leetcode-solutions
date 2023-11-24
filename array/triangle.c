@@ -7,31 +7,21 @@
 #include <string.h>
 #include <limits.h>
 
-int minimumTotal(int **triangle, int numRows) {
-    int *dp;
-    int *tmp;
-    int i,j,ret;
-
-    dp = (int *)malloc(sizeof(int) * numRows);
-    tmp = (int *)malloc(sizeof(int) * numRows);
-    dp[0] = triangle[0][0];
-    for(i = 1; i < numRows; ++i){
-        memcpy(tmp,dp,sizeof(int) * i);
-        memcpy(dp,triangle[i],sizeof(int) * (i + 1));
-        dp[0] += tmp[0];
-        for(j = 1; j < i; ++j){
-            dp[j] += tmp[j] < tmp[j-1] ? tmp[j] : tmp[j-1];
-        }
-        dp[i] += tmp[i-1];
+int minimumTotal(int** triangle, int triangleSize, int* triangleColSize){
+    //初始化dp数组
+    int* dp = (int*)malloc(triangleSize*sizeof(int));
+    for(int i=0;i<triangleSize;i++){
+        dp[i] = triangle[triangleSize-1][i];
     }
-
-    ret = dp[0];
-    for(i = 1; i < numRows; ++i)
-        ret = dp[i] < ret ? dp[i] : ret;
-
-    free(tmp);
+    //从倒数第二层开始递推
+    for(int i=triangleSize-2;i>=0;i--){
+        for(int j=0;j<triangleColSize[i];j++){
+            dp[j] = triangle[i][j] + (dp[j]<dp[j+1]?dp[j]:dp[j+1]);
+        }
+    }
+    int res = dp[0];
     free(dp);
-    return ret;
+    return res;
 }
 
 int main(){

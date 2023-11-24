@@ -10,4 +10,5 @@ foreach(PROBLEM ${PROBLEMS})
         ${CMAKE_THREAD_LIBS_INIT}
         m
     )
+    install (TARGETS ${PROJECT_NAME}_${PROBLEM_NAME}.exe DESTINATION bin)
 endforeach()
