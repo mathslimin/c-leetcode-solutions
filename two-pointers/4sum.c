@@ -1,66 +1,66 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 /**
- * Return an array of arrays of size *returnSize.
- * Note: The returned array must be malloced, assume caller calls free().
+由于题目中要求返回一个二维数组，因此我们需要使用动态内存分配来创建二维数组。具体实现如下：
  */
-int cmp(const void *a, const void *b)
-{
-    return *(const int *)a - *(const int *)b;
-}
-
-int *get_4sum(int a,int b, int c, int d)
-{
-    int *arr = (int *)malloc(sizeof(int) * 4);
-    arr[0] = a;
-    arr[1] = b;
-    arr[2] = c;
-    arr[3] = d;
-
-    return arr;
-}
-
 int** fourSum(int* nums, int numsSize, int target, int* returnSize) {
-    int count = 0;
-    int i,j,start,end;
-    int **ret;
-    int alloc = numsSize;
-    int sum;
+    int i, j, k, l, sum, count = 0;
+    int** res = (int**)malloc(sizeof(int*) * numsSize * numsSize); // 动态分配二维数组空间
 
-    ret = (int **)malloc(sizeof(int *) * alloc);
-    qsort(nums,numsSize,sizeof(int),cmp);
+    for (i = 0; i < numsSize - 3; i++) {
+        if (i > 0 && nums[i] == nums[i - 1]) continue; // 避免重复解
 
-    for(i = 0; i < numsSize - 3; ++i){
-        if(i > 0 && nums[i] == nums[i-1])
-            continue;
+        for (j = i + 1; j < numsSize - 2; j++) {
+            if (j > i + 1 && nums[j] == nums[j - 1]) continue; // 避免重复解
 
-        for(j = i + 1; j < numsSize - 2; ++j){
-            if(j > i + 1 && nums[j] == nums[j-1])
-                continue;
+            k = j + 1;
+            l = numsSize - 1;
 
-            start = j + 1;
-            end = numsSize - 1;
-            while(start < end){
-                if(start > j + 1 && nums[start] == nums[start-1]){
-                    start++;
-                    continue;
+            while (k < l) {
+                sum = nums[i] + nums[j] + nums[k] + nums[l];
+
+                if (sum == target) {
+                    res[count] = (int*)malloc(sizeof(int) * 4); // 动态分配一维数组空间
+                    res[count][0] = nums[i];
+                    res[count][1] = nums[j];
+                    res[count][2] = nums[k];
+                    res[count][3] = nums[l];
+                    count++;
+                    while (k < l && nums[k] == nums[k + 1]) k++; // 避免重复解
+                    while (k < l && nums[l] == nums[l - 1]) l--; // 避免重复解
+                    k++;
+                    l--;
+                } else if (sum < target) {
+                    k++;
+                } else {
+                    l--;
                 }
-
-                sum = nums[i] + nums[j] + nums[start] + nums[end];
-                if(sum == target){
-                    ret[count++] = get_4sum(nums[i],nums[j],nums[start],nums[end]);
-                    if(count == alloc){
-                        alloc <<= 1;
-                        ret = realloc(ret,sizeof(int *) * alloc);
-                    }
-                }
-
-                if(sum > target)
-                    --end;
-                else
-                    ++start;
             }
         }
     }
 
     *returnSize = count;
-    return ret;
+    return res;
+}
+
+int main() {
+    int nums[] = {1, 0, -1, 0, -2, 2};
+    int numsSize = sizeof(nums) / sizeof(int);
+    int target = 0;
+    int returnSize;
+    int i, j;
+
+    int** res = fourSum(nums, numsSize, target, &returnSize);
+
+    for (i = 0; i < returnSize; i++) {
+        printf("[");
+        for (j = 0; j < 4; j++) {
+            printf("%d", res[i][j]);
+            if (j < 3) printf(", ");
+        }
+        printf("]");
+    }
+
+    return 0;
 }

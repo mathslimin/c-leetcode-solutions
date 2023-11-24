@@ -1,29 +1,33 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+//双指针解法
 int trap(int* height, int heightSize) {
-    int max_height;
-    int max_index;
-    int i;
-    int sum = 0;
-
-    max_height = 0;
-    for(i = 0; i < heightSize; ++i)
-        if(height[i] > max_height){
-            max_index = i;
-            max_height = height[i];
+    if (heightSize <= 2) return 0;
+    int left = 0, right = heightSize - 1;
+    int left_max = height[left], right_max = height[right];
+    int water = 0;
+    while (left < right) {
+        if (height[left] < height[right]) {
+            left_max = height[left] > left_max ? height[left] : left_max;
+            water += left_max - height[left];
+            left++;
+        } else {
+            right_max = height[right] > right_max ? height[right] : right_max;
+            water += right_max - height[right];
+            right--;
         }
-
-    max_height = 0;
-    for(i = 0; i < max_index; ++i){
-        if(max_height > height[i])
-            sum += (max_height - height[i]);
-        max_height = height[i] > max_height ? height[i] : max_height;
     }
+    return water;
+}
 
-    max_height = 0;
-    for(i = heightSize - 1; i > max_index; --i){
-        if(max_height > height[i])
-            sum += (max_height - height[i]);
-        max_height = height[i] > max_height ? height[i] : max_height;
-    }
-
-    return sum;
+int main() {
+    int height[] = {0,1,0,2,1,0,1,3,2,1,2,1};
+    int heightSize = sizeof(height) / sizeof(height[0]);
+    int water = trap(height, heightSize);
+    printf("The trapped water is %d", water);
+    return 0;
 }

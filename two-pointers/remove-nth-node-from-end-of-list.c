@@ -1,28 +1,77 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "listnode.h"
+
 /**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     struct ListNode *next;
- * };
+
  */
-struct ListNode* removeNthFromEnd(struct ListNode* head, int n) {
-    struct ListNode root;
-    struct ListNode *l1,*l2;
+struct ListNode* removeNthFromEnd(struct ListNode* head, int n)
+{
+    if (n == 0)
+        return head;
 
-    root.next = head;
-    l1 = &root;
-    l2 = &root;
+    struct ListNode *fast, *slow;
+    fast = slow = head;
 
-    while(n--){
-        l2 = l2->next;
+    while (n--) {
+        fast = fast->next;
     }
 
-    while(l2->next){
-        l1 = l1->next;
-        l2 = l2->next;
+    if (fast == NULL) { /* reach the tail, so we delete the head */
+        head = head->next;
+        return head;
     }
 
-    l1->next = l1->next->next;
+    while (fast->next != NULL) {
+        fast = fast->next;
+        slow = slow->next;
+    }
 
-    return root.next;
+    /* slow pointer is at the previous node of the one to be deleted */
+    slow->next = slow->next->next;
+
+    return head;
+}
+
+int main()
+{
+    struct ListNode* l1 = (struct ListNode*)calloc(5, sizeof(struct ListNode));
+    struct ListNode* p = l1;
+    int i;
+    for (i = 1; i <= 4; i++) {
+        p->val = i;
+        p->next = p + 1;
+        p++;
+    }
+    p->val = 5;
+    p->next = NULL;
+
+    p = removeNthFromEnd(l1, 1); /* delete the tail */
+
+    while (p) {
+        printf("%d ", p->val);
+        p = p->next;
+    }
+    printf("\n");
+
+    p = removeNthFromEnd(l1, 0); /* delete nothing */
+
+    while (p) {
+        printf("%d ", p->val);
+        p = p->next;
+    }
+    printf("\n");
+
+    p = removeNthFromEnd(l1, 4); /* delete the head */
+
+    while (p) {
+        printf("%d ", p->val);
+        p = p->next;
+    }
+    printf("\n");
+
+    return 0;
 }

@@ -2,3 +2,7 @@
 tmp
 *.exe
 output
+.cache
+.subRepoRulesets
+tags
+tags-*
