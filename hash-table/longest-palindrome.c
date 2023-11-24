@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int longestPalindrome(char* s) {
     int map[256] = {0};
     int i,len,ret = 0;
@@ -16,4 +23,11 @@ int longestPalindrome(char* s) {
     }
 
     return ret + plus;
+}
+
+int main() {
+    char s[] = "babad";
+    int len = longestPalindrome(s);
+    printf("%d", len); // 输出3，因为最长回文子串为"bab"
+    return 0;
 }

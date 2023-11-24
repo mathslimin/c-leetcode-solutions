@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int lengthOfLongestSubstring(char* s) {
     int index[256] = {0};
     int last_index = -1;
@@ -11,4 +18,11 @@ int lengthOfLongestSubstring(char* s) {
     }
 
     return ret;
+}
+
+int main() {
+    char s[] = "abcabcbb";
+    int len = lengthOfLongestSubstring(s);
+    printf("%d", len); // 输出3
+    return 0;
 }

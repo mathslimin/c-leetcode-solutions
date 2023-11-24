@@ -1,43 +1,53 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     struct TreeNode *left;
- *     struct TreeNode *right;
- * };
- */
-/**
- * Return an array of size *returnSize.
- * Note: The returned array must be malloced, assume caller calls free().
- */
+// 94. 二叉树的中序遍历
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+#include "treenode.h"
 
-int *arr;
-int count;
-int idx;
-
-void dfs(struct TreeNode* root)
-{
-    if(root == NULL)
+void inorderTraversalHelper(struct TreeNode* root, int* res, int* returnSize) {
+    if (root == NULL) {
         return;
-
-    dfs(root->left);
-
-    if(idx == 0 || idx == count){
-        count <<= 1;
-        arr = realloc(arr,sizeof(int) * count);
     }
-    arr[idx++] = root->val;
-
-    dfs(root->right);
+    inorderTraversalHelper(root->left, res, returnSize);
+    res[(*returnSize)++] = root->val;
+    inorderTraversalHelper(root->right, res, returnSize);
 }
 
 int* inorderTraversal(struct TreeNode* root, int* returnSize) {
-    arr = NULL;
-    count = 32;
-    idx = 0;
+    int* res = (int*)malloc(sizeof(int) * 100);
+    *returnSize = 0;
+    inorderTraversalHelper(root, res, returnSize);
+    return res;
+}
 
-    dfs(root);
+int main() {
+    struct TreeNode* root = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->val = 1;
+    root->left = NULL;
+    root->right = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->right->val = 2;
+    root->right->left = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->right->left->val = 3;
+    root->right->left->left = NULL;
+    root->right->left->right = NULL;
+    root->right->right = NULL;
 
-    *returnSize = idx;
-    return arr;
+    int returnSize;
+    int* res = inorderTraversal(root, &returnSize);
+
+    for (int i = 0; i < returnSize; i++) {
+        printf("%d ", res[i]);
+    }
+    printf("\n");
+
+    free(root->right->left);
+    free(root->right);
+    free(root);
+
+    free(res);
+
+    return 0;
 }

@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 bool happy(int n, int *count)
 {
     if(n == 1)
@@ -20,4 +27,11 @@ bool happy(int n, int *count)
 bool isHappy(int n) {
     int count = 0;
     return happy(n,&count);
+}
+
+int main(){
+    int n = 19;
+    bool result = isHappy(n);
+    printf("%d", result);
+    return 0;
 }

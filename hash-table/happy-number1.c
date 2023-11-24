@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 bool isHappy(int n) {
     int *flag;
     int tmp;
@@ -25,4 +32,11 @@ bool isHappy(int n) {
 
     free(flag);
     return n == 1;
+}
+
+int main(){
+    int n = 19;
+    bool result = isHappy(n);
+    printf("%d", result);
+    return 0;
 }

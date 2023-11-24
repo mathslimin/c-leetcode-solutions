@@ -1,7 +1,10 @@
-/**
- * Return an array of size *returnSize.
- * Note: The returned array must be malloced, assume caller calls free().
- */
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 char** findWords(char** words, int wordsSize, int* returnSize) {
     char **res;
     char *word;
@@ -31,4 +34,14 @@ char** findWords(char** words, int wordsSize, int* returnSize) {
 
     *returnSize = count;
     return res;
+}
+
+int main() {
+    char *words[] = {"Hello", "Alaska", "Dad", "Peace"};
+    int returnSize;
+    char **result = findWords(words, 4, &returnSize);
+    for (int i = 0; i < returnSize; i++) {
+        printf("%s ", result[i]);
+    }
+    return 0;
 }

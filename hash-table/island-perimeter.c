@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int islandPerimeter(int** grid, int gridRowSize, int gridColSize) {
     int perimeter = 0;
     int i,j;
@@ -19,4 +26,17 @@ int islandPerimeter(int** grid, int gridRowSize, int gridColSize) {
     }
 
     return perimeter;
+}
+
+int main() {
+    int grid[4][4] = {
+        {0, 1, 0, 0},
+        {1, 1, 1, 0},
+        {0, 1, 0, 0},
+        {1, 1, 0, 0}
+    };
+    int* p[4] = {grid[0], grid[1], grid[2], grid[3]};
+    int perimeter = islandPerimeter(p, 4, 4);
+    printf("%d", perimeter);  // 输出6
+    return 0;
 }

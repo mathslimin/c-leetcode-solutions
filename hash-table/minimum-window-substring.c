@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 char* minWindow(char* s, char* t) {
     int i, start = 0;
     int s_len = strlen(s);
@@ -45,4 +52,13 @@ char* minWindow(char* s, char* t) {
     }
 
     return ret;
+}
+
+int main() {
+    char s[] = "ADOBECODEBANC";
+    char t[] = "ABC";
+    char* result = minWindow(s, t);
+    printf("%s", result);
+    free(result);
+    return 0;
 }

@@ -1,7 +1,10 @@
-/**
- * Return an array of size *returnSize.
- * Note: The returned array must be malloced, assume caller calls free().
- */
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int* findAnagrams(char* s, char* p, int* returnSize) {
     int *ret;
     int hp[256] = {0};
@@ -33,4 +36,18 @@ int* findAnagrams(char* s, char* p, int* returnSize) {
 
     *returnSize = index;
     return ret;
+}
+
+
+int main() {
+    char s[] = "cbaebabacd";
+    char p[] = "abc";
+    int returnSize = 0;
+    int* result = findAnagrams(s, p, &returnSize);
+    for (int i = 0; i < returnSize; i++) {
+        printf("%d ", result[i]);
+    }
+    printf("\n");
+    free(result);
+    return 0;
 }

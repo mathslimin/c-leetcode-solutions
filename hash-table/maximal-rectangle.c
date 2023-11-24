@@ -1,3 +1,10 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
 int maximalRectangle(char** matrix, int matrixRowSize, int matrixColSize) {
     int max_area = 0;
     int h,w;
@@ -32,4 +39,13 @@ int maximalRectangle(char** matrix, int matrixRowSize, int matrixColSize) {
     free(st);
 
     return max_area;
+}
+
+int main() {
+    char* matrix[4] = {"10100", "10111", "11111", "10010"};
+    int matrixSize = 4;
+    int matrixColSize[4] = {5, 5, 5, 5};
+    int res = maximalRectangle(matrix, matrixSize, matrixColSize);
+    printf("%d", res);
+    return 0;
 }

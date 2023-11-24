@@ -1,31 +1,32 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+#include "treenode.h"
+
 /**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     struct TreeNode *left;
- *     struct TreeNode *right;
- * };
+
  */
-/**
- * Return an array of size *returnSize.
- * Note: The returned array must be malloced, assume caller calls free().
- */
-int* inorderTraversal(struct TreeNode* root, int* returnSize) {
-    struct TreeNode *st[1000];
+
+int* inorderTraversal(struct TreeNode* root, int* returnSize)
+{
+    struct TreeNode* st[1000];
     int top = -1;
-    int *arr;
+    int* arr;
     int idx = 0;
     int count = 32;
 
     arr = malloc(sizeof(int) * count);
-    while(root != NULL || top > -1){
-        while(root){
+    while (root != NULL || top > -1) {
+        while (root) {
             st[++top] = root;
             root = root->left;
         }
 
         root = st[top--];
-        if(idx == count){
+        if (idx == count) {
             count <<= 1;
             arr = realloc(arr, sizeof(int) * count);
         }
@@ -35,4 +36,33 @@ int* inorderTraversal(struct TreeNode* root, int* returnSize) {
 
     *returnSize = idx;
     return arr;
+}
+
+int main() {
+    struct TreeNode* root = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->val = 1;
+    root->left = NULL;
+    root->right = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->right->val = 2;
+    root->right->left = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->right->left->val = 3;
+    root->right->left->left = NULL;
+    root->right->left->right = NULL;
+    root->right->right = NULL;
+
+    int returnSize;
+    int* res = inorderTraversal(root, &returnSize);
+
+    for (int i = 0; i < returnSize; i++) {
+        printf("%d ", res[i]);
+    }
+    printf("\n");
+
+    free(root->right->left);
+    free(root->right);
+    free(root);
+
+    free(res);
+
+    return 0;
 }
