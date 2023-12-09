@@ -5,9 +5,13 @@
             "label": "C/C++: gcc.exe build active file",
             "command": "gcc",
             "args": [
-                "-fdiagnostics-color=always",
-                "-g",
                 "${file}",
+                "-fdiagnostics-color=always",
+                "-I${workspaceFolder}/include",
+                "-lm",
+                "-g",
+                "-I${workspaceFolder}/include/vos_cstl",
+                "-L${workspaceFolder}/lib",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}.exe"
             ],
