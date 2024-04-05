@@ -37,10 +37,5 @@
         "editor.insertSpaces": true,
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "golang.go"
-    },
-    "[java]": {
-        "editor.insertSpaces": true,
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "redhat.java",
     }
 }
