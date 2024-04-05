@@ -1,0 +1,46 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/*.crswap": true,
+        "**/.mm": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true,
+        "**/*.exe": true
+    },
+    "search.exclude": {
+        "**/.cache/clangd/**": true,
+        "**/*.{a,o,d,so,lib,ts,marks,dpg,PGA,internal,ko,n,msg,bin,pga}": true,
+        "**/CMakeFiles/*": true,
+        "**/*.dir": true,
+        "**/{temp,output}/*": true,
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*.code-search": true
+    },
+    "code-runner.executorMap": {
+        "javascript": "node",
+        "python": "python3",
+        "perl": "perl",
+        "ruby": "ruby",
+        "go": "go run",
+        "java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
+        "c": "cd $dir && gcc $fileName -g -I$dir/../include/ -I$dir/../vos_cstl/ -I$dir/../../include/ -lm -lpthread -o /tmp/$fileNameWithoutExt.exe && /tmp/$fileNameWithoutExt.exe"
+    },   
+     "[go]": {
+        "editor.insertSpaces": true,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "golang.go"
+    },
+    "[java]": {
+        "editor.insertSpaces": true,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "redhat.java",
+    }
+}

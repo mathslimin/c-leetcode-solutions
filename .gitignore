@@ -1,9 +1,11 @@
 **/build
 tmp
 *.exe
+*.dSYM
 output
 .cache
 .subRepoRulesets
 tags
 tags-*
 *.out
+.vscode
